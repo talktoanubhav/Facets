@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                dotnet build  sample.txt
                 echo 'Building..'
             }
         }
