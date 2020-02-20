@@ -1,22 +1,16 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Build') {
-            steps {
-                dotnet build  sample.txt
-                echo 'Building..'
-            }
+  environment {
+    registry = "anubhavtiwari87/anubhavconsole"
+    registryCredential = ‘dockerhub’
+  }
+  agent any
+  stages {
+    stage('Building image') {
+      steps{
+        script {
+          docker.build registry + ":$BUILD_NUMBER"
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+      }
     }
+  }
 }
