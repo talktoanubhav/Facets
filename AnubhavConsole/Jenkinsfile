@@ -1,0 +1,21 @@
+pipeline {
+  environment {
+    registry = "anubhavtiwari87/gold"
+    registryCredential = ‘dockerhub’
+  }
+  agent any
+  stages {
+    stage('Cloning Git') {
+      steps {
+        git 'https://github.com/talktoanubhav/Facets.git'
+      }
+    }
+    stage('Building image') {
+      steps{
+        script {
+          docker.build registry + ":$BUILD_NUMBER"
+        }
+      }
+    }
+  }
+}
